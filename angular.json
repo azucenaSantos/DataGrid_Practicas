@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/devextreme/dist/css/dx.material.blue.light.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -103,5 +104,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "683c8623-3d6b-4f11-a964-f7a983fa4dc1"
   }
 }

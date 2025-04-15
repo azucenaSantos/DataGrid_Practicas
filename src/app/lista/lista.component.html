@@ -4,6 +4,7 @@
   [columnAutoWidth]="true"
   [allowColumnResizing]="true"
   [showBorders]="true"
+  (onEditorPreparing)="onEditorPreparing($event)"
   #lista
 >
   <dxo-keyboard-navigation

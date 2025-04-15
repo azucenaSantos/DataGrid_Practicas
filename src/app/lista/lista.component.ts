@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
-import ArrayStore from 'devextreme/data/array_store';
-import DataSource from 'devextreme/data/data_source';
 
 @Component({
   selector: 'app-lista',
@@ -10,6 +8,7 @@ import DataSource from 'devextreme/data/data_source';
   styleUrls: ['./lista.component.scss'],
 })
 export class ListaComponent implements OnInit {
+[x: string]: any;
   @ViewChild('lista') datagrid!: DxDataGridComponent;
 
   listaComidas = comidas;
@@ -18,7 +17,7 @@ export class ListaComponent implements OnInit {
 
   editOnkeyPress = true;
 
-  enterKeyAction: DxDataGridTypes.EnterKeyAction = 'moveFocus';
+  enterKeyAction: DxDataGridTypes.EnterKeyAction = 'startEdit';
 
   enterKeyDirection: DxDataGridTypes.EnterKeyDirection = 'row';
 
@@ -28,7 +27,7 @@ export class ListaComponent implements OnInit {
 
   addFood() {
     //Crear nueva comida con valores del model (from)
-    if(this.model.id!=undefined){
+    if (this.model.id != undefined) {
       const newFood: Comida = {
         id: this.model.id,
         nombre: this.model.nombre,
@@ -39,10 +38,9 @@ export class ListaComponent implements OnInit {
       //Añadimos a la lista de comidas
       this.listaComidas.push(newFood);
       this.datagrid.instance.refresh();
-    }else{
-      alert("Debes especificar un id!");
+    } else {
+      alert('Debes especificar un id!');
     }
-    
   }
 
   deleteFood() {
@@ -54,6 +52,15 @@ export class ListaComponent implements OnInit {
       }
     }
     this.datagrid.instance.refresh();
+  }
+
+  onEditorPreparing(e: any) {
+    e.editorOptions.onFocusIn = (args: any) => {  
+      var input = args.element.querySelector(".dx-texteditor-input");  
+      if(input != null){  
+            input.select();  
+      }  
+    }  
   }
 }
 
